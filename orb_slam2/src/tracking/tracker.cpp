@@ -122,6 +122,8 @@ Tracking::Tracking()
   int nRGB = camera::is_rgb;
   mbRGB = nRGB;
 
+  cout << "-------------first debug message ------------" << endl;  
+
   if (tracking::extractor_type == tracking::ORB) {
     // mpORBextractorLeft = new ORBextractor(
     //     tracking::num_features, tracking::scale_factor, tracking::num_level,
@@ -308,7 +310,7 @@ void Tracking::track() {
       mlpTemporalPoints.clear();
 
       // Check if we need to insert a new keyframe
-      if (NeedNewKeyFrameOverride2()) {
+      if (NeedNewKeyFrameOverride()) {
         if (common::verbose) {
           LOG(INFO) << "insert new keyframe";
         }

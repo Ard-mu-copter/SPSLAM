@@ -12,7 +12,7 @@
     <arg unless="$(arg verbose)" name="args" value="-alsologtostderr -colorlogtostderr --minloglevel=1" />
 
     <node name="orb_slam" pkg="orb_slam2" type="mono_node" args="$(arg args)" launch-prefix="$(arg prefix)" output="screen" clear_params="true">
-        <param name="data_path" value="/PATH/TO/TSUKUBA/DATASET" />
+        <param name="data_path" value="/home/hzj/tsukuba/" />
         <param name="sequence" value="$(arg seq)" />
 
         <param name="visualize" value="$(arg viewer)" />

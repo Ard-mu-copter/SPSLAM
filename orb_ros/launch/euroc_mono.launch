@@ -12,7 +12,7 @@
     <arg unless="$(arg verbose)" name="args" value="-alsologtostderr -colorlogtostderr --minloglevel=1" />
 
     <node name="slam" pkg="orb_slam2" type="mono_node" args="$(arg args)" launch-prefix="$(arg prefix)" output="screen" clear_params="true">
-        <param name="data_path" value="/PATH/TO/EUROC/DATASET/$(arg seq)/mav0/" />
+        <param name="data_path" value="/home/hzj/Downloads/MH_01_easy/mav0/" />
 
         <param name="log_path" value="$(find orb_ros)/log" />
 

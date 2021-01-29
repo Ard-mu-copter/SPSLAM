@@ -19,6 +19,7 @@ list(APPEND CMAKE_PREFIX_PATH "${PROJECT_SOURCE_DIR}/3rdparty/libtorch/")
 find_package(Torch REQUIRED)
 
 include_directories(
+  ${PROJECT_SOURCE_DIR}/3rdparty/
 	${PROJECT_SOURCE_DIR}/include
   ${TORCH_INCLUDE_DIRS}
   ${Pangolin_INCLUDE_DIRS}
@@ -76,6 +77,7 @@ ${Pangolin_LIBRARIES}
 ${TORCH_LIBRARIES}
 # fmt::fmt-header-only
 ${TORCH_LIBRARIES}
+${PROJECT_SOURCE_DIR}/3rdparty/DBoW2/build/libDBoW2.so
 )
 
 add_executable(mono_node node/mono_node.cc)

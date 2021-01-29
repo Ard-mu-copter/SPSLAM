@@ -19,7 +19,7 @@ list(APPEND CMAKE_PREFIX_PATH "${PROJECT_SOURCE_DIR}/3rdparty/libtorch/")
 find_package(Torch REQUIRED)
 
 include_directories(
-  ${PROJECT_SOURCE_DIR}/3rdparty/
+  ${PROJECT_SOURCE_DIR}/3rdparty/DBoW2/include/DBoW2
 	${PROJECT_SOURCE_DIR}/include
   ${TORCH_INCLUDE_DIRS}
   ${Pangolin_INCLUDE_DIRS}
@@ -82,6 +82,9 @@ ${PROJECT_SOURCE_DIR}/3rdparty/DBoW2/build/libDBoW2.so
 
 add_executable(mono_node node/mono_node.cc)
 target_link_libraries(mono_node ${PROJECT_NAME})
+
+add_executable(dbow_build node/dbow_build.cc)
+target_link_libraries(dbow_build ${PROJECT_NAME})
 
 cs_install()
 cs_export()

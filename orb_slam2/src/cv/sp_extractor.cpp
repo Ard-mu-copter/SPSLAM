@@ -350,18 +350,17 @@ SPExtractor::SPExtractor(int _nfeatures)
     device_ = torch::Device(torch::kCUDA);
   }
 
-  int height = 480;
-  int width = 640;
-  model_ = make_shared<SPFrontend>(0.015, height, width, 8);
-  //model_ = make_shared<SPFrontend>(0.015, camera::height, camera::width, 8);
-  string model_path = "/home/hzj/paper/IROS2021/WORKSPACE/src/sp_orb_slam/orb_ros/data/models/superpoint.pt";
-  //torch::load(model_, common::model_path);
-  torch::load(model_, model_path);
+  // TODO: use for train the dbow 
+  // int height = 480;
+  // int width = 640;
+  // model_ = make_shared<SPFrontend>(0.015, height, width, 8);
+  // string model_path = "/home/hzj/paper/IROS2021/WORKSPACE/src/sp_orb_slam/orb_ros/data/models/superpoint.pt";
+  // torch::load(model_, model_path);
 
 
   // model_ = torch::jit::load(sp::weight_path);
-  //model_ = make_shared<SPFrontend>(0.015, camera::height, camera::width, 8);
-  //torch::load(model_, common::model_path);
+  model_ = make_shared<SPFrontend>(0.015, camera::height, camera::width, 8);
+  torch::load(model_, common::model_path);
   model_->to(device_);
   model_->eval();
   // torch::load(model_, sp::weight_path);

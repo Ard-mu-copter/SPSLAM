@@ -86,5 +86,8 @@ target_link_libraries(mono_node ${PROJECT_NAME})
 add_executable(dbow_build node/dbow_build.cc)
 target_link_libraries(dbow_build ${PROJECT_NAME})
 
+add_executable(dbow_training node/dbow_training.cc)
+target_link_libraries(dbow_training ${PROJECT_NAME})
+
 cs_install()
 cs_export()

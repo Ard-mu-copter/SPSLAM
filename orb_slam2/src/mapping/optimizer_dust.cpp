@@ -263,7 +263,6 @@ int Optimizer::PoseOptimizationDust(Frame *pFrame,
       mps[idx]->in_view = true;
       mps[idx]->dust_proj_u = e->u_;
       mps[idx]->dust_proj_v = e->v_;
-      mps[idx]->dust_proj_v = e->v_;
     }
   }
 

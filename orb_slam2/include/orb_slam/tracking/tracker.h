@@ -169,6 +169,10 @@ public:
 
   int mnMatchesInliers;
 
+  // for count inlier numbers
+  int inlier_matches_sum;
+  int inlier_matches_count;
+
   KeyFrame *mpLastKeyFrame;
   Frame mLastFrame;
   unsigned int mnLastKeyFrameId;

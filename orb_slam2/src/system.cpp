@@ -196,6 +196,7 @@ void System::spin() {
 
   SaveTrajectoryTUM(common::output_path + "/traj.txt");
   SaveKeyFrameTrajectoryTUM(common::output_path + "/kf.txt");
+  cout << "average inlier keypoints are " << global::tracker->inlier_matches_sum / global::tracker->inlier_matches_count << endl;
   // SaveTrajectoryTUM(common::output_path + "/traj.txt");
 }
 

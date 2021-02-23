@@ -122,7 +122,9 @@ Tracking::Tracking()
   int nRGB = camera::is_rgb;
   mbRGB = nRGB;
 
-  cout << "-------------first debug message ------------" << endl;  
+  cout << "-------------first debug message ------------" << endl; 
+  inlier_matches_count = 0;
+  inlier_matches_sum = 0;
 
   if (tracking::extractor_type == tracking::ORB) {
     // mpORBextractorLeft = new ORBextractor(
@@ -594,6 +596,9 @@ bool Tracking::TrackLocalMap() {
               << " #map points: " << mvpLocalMapPoints.size()
               << " #inliers: " << mnMatchesInliers;
   }
+
+  inlier_matches_sum += mnMatchesInliers;
+  inlier_matches_count++;
 
   inlier_fine.push_back(mnMatchesInliers);
   inlier_fine_ratio.push_back(mnMatchesInliers * 1.0f / mCurrentFrame.N);

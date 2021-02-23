@@ -86,6 +86,18 @@ void System::Shutdown() {
   cout << "looper && mapper finished... " << endl;
 }
 
+void System::SaveAverageInlierNumberToFile(const string &filename) 
+{
+  cout << endl << "Saving average inlier number to " << filename << " ..." << endl;
+  ofstream f;
+  f.open(filename.c_str());
+  f << fixed;
+  f << global::tracker->mnMatchesInliers << endl;
+  f.close();
+  cout << endl << "parameter saved!" << endl;
+
+}
+
 void System::SaveTrajectoryTUM(const string &filename) {
   cout << endl << "Saving camera trajectory to " << filename << " ..." << endl;
 

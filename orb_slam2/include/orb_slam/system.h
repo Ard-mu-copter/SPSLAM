@@ -30,6 +30,8 @@ public:
 
   void SaveKeyFrameTrajectoryTUM(const std::string &filename);
 
+  void SaveAverageInlierNumberToFile(const std::string &filename);
+
   void SaveTrajectoryKITTI(const std::string &filename);
   void SaveTrajectoryEuroc(const std::string &filename);
 

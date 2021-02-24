@@ -92,7 +92,10 @@ void System::SaveAverageInlierNumberToFile(const string &filename)
   ofstream f;
   f.open(filename.c_str());
   f << fixed;
-  f << global::tracker->mnMatchesInliers << endl;
+  for (int i = 0; i < global::tracker->inlier_matches_count_for_draw.size(); i++) {
+    f << global::tracker->inlier_matches_count_for_draw[i] << endl;
+  }
+  //f << global::tracker->mnMatchesInliers << endl;
   f.close();
   cout << endl << "parameter saved!" << endl;
 

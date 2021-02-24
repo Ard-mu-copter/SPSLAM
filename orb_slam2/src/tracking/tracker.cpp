@@ -599,6 +599,7 @@ bool Tracking::TrackLocalMap() {
 
   inlier_matches_sum += mnMatchesInliers;
   inlier_matches_count++;
+  inlier_matches_count_for_draw.push_back(mnMatchesInliers);
 
   inlier_fine.push_back(mnMatchesInliers);
   inlier_fine_ratio.push_back(mnMatchesInliers * 1.0f / mCurrentFrame.N);

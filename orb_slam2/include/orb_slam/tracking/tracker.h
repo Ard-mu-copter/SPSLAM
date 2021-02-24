@@ -172,6 +172,7 @@ public:
   // for count inlier numbers
   int inlier_matches_sum;
   int inlier_matches_count;
+  std::vector<int> inlier_matches_count_for_draw;
 
   KeyFrame *mpLastKeyFrame;
   Frame mLastFrame;

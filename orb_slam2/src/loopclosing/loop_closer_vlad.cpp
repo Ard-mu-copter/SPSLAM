@@ -292,11 +292,12 @@ void LoopClosingVLAD::Run() {
   while (1) {
     // Check if there are keyframes in the queue
     if (CheckNewKeyFrames()) {
-      LOG(INFO) << "loop closing";
+      cout << "loop closing" << endl;
 
       // Detect loop candidates and check covisibility consistency
       timing::Timer timer_detect("loop/detection");
-      auto res = DetectLoop();
+      //auto res = DetectLoop();
+      auto res = detectLoopVLAD();
       timer_detect.Stop();
       if (res) {
         // Compute similarity transformation [sR|t]
@@ -339,7 +340,20 @@ bool LoopClosingVLAD::CheckNewKeyFrames() {
 }
 
 bool LoopClosingVLAD::DetectLoop() {
-  throw std::runtime_error("no implementation");
+  // throw std::runtime_error("no implementation");
+  
+  // use orb to assist the loop detection
+  // TODO: add superpoint descriptor support for dbow
+  // use group neighbour to detect the loop
+  {
+    unique_lock<mutex> lock(mMutexLoopQueue);
+    mpCurrentKF = mlpLoopKeyFrameQueue.front();
+    mlpLoopKeyFrameQueue.pop_front();
+    mpCurrentKF->SetNotErase();
+  }
+
+  
+
 }
 
 bool LoopClosingVLAD::ComputeSim3() {

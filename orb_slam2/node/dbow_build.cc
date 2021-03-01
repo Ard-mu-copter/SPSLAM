@@ -28,7 +28,7 @@ void loadFeatures(vector<vector<cv::Mat > > &features);
 void changeStructure(const cv::Mat &plain, vector<cv::Mat> &out);
 void testVocCreation(const vector<vector<cv::Mat > > &features);
 void testDatabase(const vector<vector<cv::Mat > > &features);
-
+void selectTopScore(const vector<vector<cv::Mat > > &features);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
@@ -49,12 +49,17 @@ int main()
 {
   vector<vector<cv::Mat > > features;
   loadFeatures(features);
+  
+  cout << features.size() << endl;
+  cout << features[0].size() << endl;
+  cout << features[0][0].size() << endl;
+  //testVocCreation(features);
 
-  testVocCreation(features);
+  //wait();
 
-  wait();
+  //testDatabase(features);
 
-  testDatabase(features);
+  selectTopScore(features);
 
   return 0;
 }
@@ -82,6 +87,8 @@ void loadFeatures(vector<vector<cv::Mat > > &features)
     cv::Mat descriptors;
 
     orb->detectAndCompute(image, mask, keypoints, descriptors);
+
+    cout << descriptors.size() << endl;
 
     features.push_back(vector<cv::Mat >());
     changeStructure(descriptors, features.back());
@@ -195,4 +202,37 @@ void testDatabase(const vector<vector<cv::Mat > > &features)
 
 // ----------------------------------------------------------------------------
 
+void selectTopScore(const vector<vector<cv::Mat > > &features)
+{
+  cout << "Loading a small database..." << endl;
 
+  // load the vocabulary from disk
+  //OrbVocabulary voc("small_voc.yml.gz");
+  
+  //OrbDatabase db(voc, false, 0); // false = do not use direct index
+  OrbDatabase db2("small_db.yml.gz");
+  // (so ignore the last param)
+  // The direct index is useful if we want to retrieve the features that 
+  // belong to some vocabulary node.
+  // db creates a copy of the vocabulary, we may get rid of "voc" now
+  
+  // and query the database
+  cout << "Querying the database: " << endl;
+
+  QueryResults ret;
+  for(int i = 0; i < NIMAGES; i++)
+  {
+    db2.query(features[i], ret, 4);
+
+    // ret[0] is always the same image in this case, because we added it to the 
+    // database. ret[1] is the second best match.
+
+    cout << "Searching for Image " << i << ". " << ret << endl;
+    //cout << ret[1].Id << endl;
+    cout << "xxxxxxxxxxxxx" << ret[1].Id << "xxxxxxxxxxxxxxxxx" << ret[1].Score << endl;
+  }
+
+  cout << endl;
+
+
+}

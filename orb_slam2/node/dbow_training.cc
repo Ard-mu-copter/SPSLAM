@@ -44,7 +44,7 @@ void loadFeatures(vector<vector<cv::Mat > > &features);
 void changeStructure(const cv::Mat &plain, vector<cv::Mat> &out);
 void testVocCreation(const vector<vector<cv::Mat > > &features);
 void testDatabase(const vector<vector<cv::Mat > > &features);
-
+void testDatabaseStandAlone(const vector<vector<cv::Mat > > &features);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
@@ -65,14 +65,18 @@ int main()
 {
   vector<vector<cv::Mat > > features;
   loadFeatures(features);
-
+    cout << features.size() << endl;
+  cout << features[0].size() << endl;
+  cout << features[0][0].size() << endl;
   testVocCreation(features);
 
   wait();
 
   testDatabase(features);
 
-  return 0;
+    //testDatabaseStandAlone(features);
+
+    return 0;
 }
 
 // ----------------------------------------------------------------------------
@@ -140,7 +144,7 @@ void loadFeatures(vector<vector<cv::Mat > > &features)
         cv::Mat image = cv::imread(ss.str(), 0);
         cv::Mat mask;
         vector<cv::KeyPoint> keypoints;
-        cv::Mat descriptors;
+        //cv::Mat descriptors;
 
         double timestamp = 0.0;
         //BaseExtractor *mpORBextractorLeft = new BaseExtractor();
@@ -150,12 +154,13 @@ void loadFeatures(vector<vector<cv::Mat > > &features)
         Frame *mCurrentFrame = new Frame(image, timestamp, mpORBextractorLeft, mK, mDistCoef, mbf, mThDepth);
         //cout << mCurrentFrame->mDescriptors.size() << endl;
         //features.push_back(mCurrentFrame->mDescriptors);
-        //cout << mCurrentFrame->mvKeys.size() << endl;
+        //descriptors = mCurrentFrame->mDescriptors;
+        cout << mCurrentFrame->mvKeys.size() << endl;
         
 
 
         features.push_back(vector<cv::Mat >());
-        changeStructure(descriptors, features.back());
+        changeStructure(mCurrentFrame->mDescriptors, features.back());
     }
 }
 
@@ -176,8 +181,8 @@ void changeStructure(const cv::Mat &plain, vector<cv::Mat> &out)
 void testVocCreation(const vector<vector<cv::Mat > > &features)
 {
   // branching factor and depth levels 
-  const int k = 9;
-  const int L = 3;
+  const int k = 10;
+  const int L = 6;
   const WeightingType weight = TF_IDF;
   const ScoringType scoring = L1_NORM;
 
@@ -262,6 +267,28 @@ void testDatabase(const vector<vector<cv::Mat > > &features)
   cout << "Retrieving database once again..." << endl;
   OrbDatabase db2("small_db.yml.gz");
   cout << "... done! This is: " << endl << db2 << endl;
+}
+
+void testDatabaseStandAlone(const vector<vector<cv::Mat > > &features)
+{
+    OrbDatabase db2("small_db.yml.gz");
+    cout << "... done! This is: " << endl << db2 << endl;
+    // and query the database
+    cout << "Querying the database: " << endl;
+
+    QueryResults ret;
+    for(int i = 0; i < NIMAGES; i++)
+    {
+        db2.query(features[i], ret, 4);
+
+        // ret[0] is always the same image in this case, because we added it to the 
+        // database. ret[1] is the second best match.
+
+        cout << "Searching for Image " << i << ". " << ret << endl;
+    }
+
+    cout << endl;
+
 }
 
 // ----------------------------------------------------------------------------

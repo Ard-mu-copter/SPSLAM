@@ -22,28 +22,35 @@ pip install evo --upgrade --no-binary evo
 
 # Installation
 
-1. Initialize a workspace:
+   1.Initialize a workspace:
 
 mkdir -p /EXAMPLE/CATKIN/WORK_SPACE
+
 cd /EXAMPLE/CATKIN/WORK_SPACE
 
 mkdir src
+
 catkin init
+
 catkin config --extend /opt/ros/melodic
+
 catkin config --cmake-args -DCMAKE_BUILD_TYPE=Release
+
 catkin config --merge-devel
 
-2. Clone the code:
+   2. Clone the code:
 
 cd src
+
 git clone https://github.com/Ard-mu-copter/SPSLAM.git
 
-Use the installation script:
+   3. Use the installation script:
 
 cd sp_orb_slam
+
 ./install.sh
 
-2. Running Examples
+   4. Running Examples
 
     Replace the /PATH/TO/TSUKUBA/DATASET in tsukuba.launch with where the sequence is decompressed:
 
